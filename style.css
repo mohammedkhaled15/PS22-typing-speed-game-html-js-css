@@ -76,6 +76,7 @@ select{
     font-weight: bold;
     text-align: center;
     color: var(--main-color);
+    margin: 0 4px;
 }
 select:focus{
     outline: none;
