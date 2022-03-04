@@ -14,7 +14,8 @@ let date = new Date
 let today = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
 let overlay = document.querySelector(".overlay")
 let gameOverSound = new Audio("sounds/game-over.mp3")
-let gameWin = new Audio("sounds/word-match.wav")
+let cardMatch = new Audio("sounds/word-match.wav")
+let gameWin = new Audio("sounds/finish-game.wav")
 
 
 
@@ -138,8 +139,8 @@ function startPlay(){
             if(writtenWord.value.toLowerCase() === mainWord.innerHTML.toLowerCase()){
 
                 //playing sound
-                gameWin.play()
-                
+                cardMatch.play()
+
                 //empty the input field
                 writtenWord.value = ""
 
@@ -174,7 +175,9 @@ function startPlay(){
                 //generate message of success
                 mainWord.innerHTML = "WELL DONE"
                 mainWord.style.color = "red"
-                
+                gameWin.play()
+                wordList.remove()
+                writtenWord.remove()
 
                 //stop the timer
                 clearInterval(timer)

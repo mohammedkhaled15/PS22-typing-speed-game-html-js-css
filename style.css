@@ -6,7 +6,6 @@
 }
 body{
     background-color: #eee;
-    overflow: hidden;
 }
 :root{
     --main-color:#3f51b5;
@@ -17,6 +16,7 @@ body{
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 10;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.8);
     display: flex;
@@ -36,6 +36,7 @@ body{
     font-weight: bold;
     letter-spacing: 4px;
 }
+
 .container{
     padding: 20px;
     width: 80%;
@@ -50,12 +51,17 @@ body{
     font-weight: bold;
     font-size: 1.1rem;
     color: #fff;
+    border-radius: 5px;
 }
 @media (max-width:576px) {
     .difficulty{
         flex-wrap:wrap;
         justify-content: center;
         align-items: center;
+        height: 180px;
+    }
+    .difficulty .diff-desc{
+        text-align: center;
     }
 }
 .diff-desc span{
@@ -147,8 +153,14 @@ select option:nth-child(3){
     font-size: 1.2rem;
     font-weight: 700;
 }
+@media (max-width:576px) {
+    .dashboard{
+        font-size: 0.65rem;
+    }
+}
 .dashboard span{
     color:var(--main-color);
+    font-size: 1.1rem;
 }
 #message{
     margin: 10px;
@@ -163,6 +175,6 @@ select option:nth-child(3){
         transform: scale(1,1);
     }
     100%{
-        transform: scale(1.8,1.8);
+        transform: scale(1.3,1.3);
     }
 }
