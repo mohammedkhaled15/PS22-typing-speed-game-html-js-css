@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>typing-speed-test-game</title>
+</head>
+<body>
+    <div class="overlay">3</div>
+    <div id="main">
+        <div id="header">Typing Speed Test Game</div>
+        <div class="container">
+            <div class="difficulty">
+                <label for="difficulty">Choose difficulty?</label>
+                <select name="difficulty" id="difficulty">
+                    <option value="easy" selected>Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+                <div class="diff-desc">
+                    You have only <span>3</span> <span>seconds</span> for each word
+                </div>
+            </div>
+            
+            <div id="main-word"></div>
+            <div id="button">Start New Game</div>
+            <input type="text" id="written-word">
+            <div id="word-list"></div>
+            <div class="dashboard">
+                <div class="time"></div>
+                <div class="score"></div>
+            </div>
+            <div class="message"></div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

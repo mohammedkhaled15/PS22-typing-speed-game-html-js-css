@@ -1,0 +1,128 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+:root{
+    --main-color:#3f51b5;
+    --imp-details:#372621;
+}
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ccc;
+    font-size: 10rem;
+    font-weight: bold;
+    display: none;
+}
+#header{
+    background-color:var(--main-color);
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 4px;
+}
+.container{
+    padding: 20px;
+    width: 80%;
+    margin: auto;
+}
+.difficulty{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2196f3;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #fff;
+}
+.diff-desc span{
+    color: var(--imp-details);
+    font-size: 1rem;
+}
+select{
+    border: none;
+    font-size: 1.1rem;
+    padding: 3px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--main-color);
+}
+select:focus{
+    outline: none;
+}
+select *{
+    font-weight: bold;
+    background-color: #2195f375;
+}
+select option:first-child{
+    color: var(--main-color);
+}
+select option:nth-child(2){
+    color: rgb(196, 216, 81);
+}
+select option:nth-child(3){
+    color: rgb(94, 14, 14);
+}
+#main-word{
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    color: var(--main-color);
+}
+#button{
+    background-color: var(--main-color);
+    color: #fff;
+    font-size:1.2rem;
+    font-weight: bold;
+    padding:8px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    margin:5px 0;
+}
+#written-word{
+    font-size: 1.1rem;
+    font-weight: bold;
+    caret-color: var(--main-color);
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    padding: 7px;
+    text-align: center;
+    background-color: #2195f36e;
+}
+#written-word:focus{
+    outline: none;
+}
+#word-list{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: #2195f36e;
+    margin: 10px 0 ;
+    padding: 20px;
+    border-radius: 8px;
+}
+#word-list span{
+    background-color: var(--main-color);
+    color: #fff;
+    padding: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 5px;
+    border-radius: 8px;
+}
