@@ -51,6 +51,13 @@ body{
     font-size: 1.1rem;
     color: #fff;
 }
+@media (max-width:576px) {
+    .difficulty{
+        flex-wrap:wrap;
+        justify-content: center;
+        align-items: center;
+    }
+}
 .diff-desc span{
     color: var(--imp-details);
     font-size: 1rem;
