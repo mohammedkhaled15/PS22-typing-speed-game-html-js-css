@@ -11,8 +11,11 @@ let scoreCounter = document.querySelector(".dashboard .score span:first-child")
 let totalNumOfWords = document.querySelector(".dashboard .score span:last-child")
 let message = document.getElementById("message")
 let date = new Date
-let today = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+let today = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
 let overlay = document.querySelector(".overlay")
+let gameOverSound = new Audio("sounds/game-over.mp3")
+let gameWin = new Audio("sounds/word-match.wav")
+
 
 
 //our array
@@ -134,6 +137,9 @@ function startPlay(){
             // checking the word
             if(writtenWord.value.toLowerCase() === mainWord.innerHTML.toLowerCase()){
 
+                //playing sound
+                gameWin.play()
+                
                 //empty the input field
                 writtenWord.value = ""
 
@@ -154,11 +160,26 @@ function startPlay(){
                 // reseting the timer
                 timeCounter.innerHTML = diffLvls[diff.value]["time"]
 
+            // if the time finished and the word not correct
             }else if(timeCounter.innerHTML === "0" && writtenWord.value.toLowerCase() !== mainWord.innerHTML.toLowerCase()){
-                message.innerHTML = "GAME OVER"
+
+                // generate amessage
+                mainWord.innerHTML = "GAME OVER"
+                mainWord.style.color = "red"
+                gameOverSound.play()
+
+                //if he made all the words in time correct
             }else if(scoreCounter.innerHTML === totalNumOfWords.innerHTML){
-                message.innerHTML = "WELL DONE"
+
+                //generate message of success
+                mainWord.innerHTML = "WELL DONE"
+                mainWord.style.color = "red"
+                
+
+                //stop the timer
                 clearInterval(timer)
+
+                //save your score with date in local storage
                 localStorage.setItem(today,scoreCounter.innerHTML)
             }
         },1000)
