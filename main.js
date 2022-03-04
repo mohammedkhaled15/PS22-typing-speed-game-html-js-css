@@ -10,28 +10,58 @@ let timeCounter = document.querySelector(".dashboard .time span")
 let scoreCounter = document.querySelector(".dashboard .score span:first-child")
 let totalNumOfWords = document.querySelector(".dashboard .score span:last-child")
 let message = document.getElementById("message")
+let date = new Date
+let today = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+let overlay = document.querySelector(".overlay")
+
 
 //our array
 let words = ["hello", "bye", "sun", "flower", "dependencies", "applicable", "computer", "python", "javascript", "speed", "list", "html",
-"linkedin", "facebook", "website", "treasure", "event", "function", "keyword", "react", "export", "random", "import",]
+"linkedin", "facebook", "website", "treasure", "event", "function", "keyword", "react", "export", "random", "import"]
 
+let easyWords = []
+let medWords = []
+let harWords = []
+
+// generating words
+words.forEach((word)=>{
+    if(word.length <= 5){
+        easyWords.push(word)
+    }else if(word.length>5 && word.length <=8){
+        medWords.push(word)
+    }else if(word.length > 8){
+        harWords.push(word)
+    }
+})
+
+// difficulties
 let diffLvls = {
-    "easy":6,
-    "medium":2,
-    "hard":1
+    "easy":{
+        "time":6,
+        "words":easyWords
+    },
+    "medium":{
+        "time":4,
+        "words":medWords
+    },
+    "hard":{
+        "time":2,
+        "words":harWords
+    },
+    
 }
 
 diff.addEventListener("change",function(){
 
     // show the time of each difficulty choosen by the user
     if(diff.value === "easy"){
-        diffTime.innerHTML = diffLvls["easy"]
+        diffTime.innerHTML = diffLvls["easy"]["time"]
         diffUnit.innerHTML = "seconds"
     }else if(diff.value === "medium"){
-        diffTime.innerHTML = diffLvls["medium"]
+        diffTime.innerHTML = diffLvls["medium"]["time"]
         diffUnit.innerHTML = "seconds"
     }else{
-        diffTime.innerHTML = diffLvls["hard"]
+        diffTime.innerHTML = diffLvls["hard"]["time"]
         diffUnit.innerHTML = "second"   
     }
 })
@@ -53,10 +83,10 @@ btn.addEventListener("click", function(){
     writtenWord.focus()
 
     //adding time counter
-    timeCounter.innerHTML = diffLvls[diff.value]
+    timeCounter.innerHTML = diffLvls[diff.value]["time"]
 
     //adding number of words
-    totalNumOfWords.innerHTML = words.length
+    totalNumOfWords.innerHTML = diffLvls[diff.value]["words"].length
 
     startPlay()
 })
@@ -65,15 +95,15 @@ btn.addEventListener("click", function(){
 function genWords(){
 
     // looping on al words to put it into spans
-    for(i=0; i<words.length; i++){
+    for(i=0; i<diffLvls[diff.value]["words"].length; i++){
         let span = document.createElement("span")
-        let wordSpan = document.createTextNode(words[i])
+        let wordSpan = document.createTextNode(diffLvls[diff.value]["words"][i])
         span.appendChild(wordSpan)
         wordList.appendChild(span)
     }
 
     //choose word randomly from list of words
-    mainWord.innerHTML =  words[Math.floor(Math.random() * words.length)]
+    mainWord.innerHTML =  diffLvls[diff.value]["words"][Math.floor(Math.random() * diffLvls[diff.value]["words"].length)]
 
     // making the input appear
     writtenWord.style.display = "inline-block"
@@ -84,41 +114,64 @@ function genWords(){
 
 function startPlay(){
     
-    //making counter active
-    let timer = setInterval(function(){
-        timeCounter.innerHTML--
+    //Showing the overlay div
+    overlay.style.display = "flex"
 
-        // stop the counter at 0
-        if(timeCounter.innerHTML === "0"){
-            clearInterval(timer)
-        }
+    // call the function which waits for preparation
+    prep()
 
-        // checking the word
-        if(writtenWord.value.toLowerCase() === mainWord.innerHTML.toLowerCase()){
+    // Delaying the start of the game after 3 seconds
+    setTimeout(()=>{
+            //making counter active
+        let timer = setInterval(function(){
+            timeCounter.innerHTML--
 
-            //empty the input field
-            writtenWord.value = ""
+            // stop the counter at 0
+            if(timeCounter.innerHTML === "0"){
+                clearInterval(timer)
+            }
 
-            // increasing the score
-            scoreCounter.innerHTML++
+            // checking the word
+            if(writtenWord.value.toLowerCase() === mainWord.innerHTML.toLowerCase()){
 
-            // reseting the timer
-            timeCounter.innerHTML = diffLvls[diff.value]
+                //empty the input field
+                writtenWord.value = ""
 
-            //activating the timer again
-            setInterval(function(){
+                // deleting the word from the list
+                diffLvls[diff.value]["words"].splice(diffLvls[diff.value]["words"].indexOf(mainWord.innerHTML),1)
 
-            },1000)
+                // empty the upcoming words
+                wordList.innerHTML = ""
 
-            // deleting the word from the list
-            document.querySelectorAll("#word-list span").forEach((span)=>{
-                if (span.innerHTML === writtenWord.value.toLowerCase()){
-                    span.remove()
+                //check if the array is empty
+                if(diffLvls[diff.value]["words"].length>0){
+                    genWords()
                 }
-            })
-        }else{
-            message.innerHTML = "GAME OVER"
+
+                // increasing the score
+                scoreCounter.innerHTML++
+
+                // reseting the timer
+                timeCounter.innerHTML = diffLvls[diff.value]["time"]
+
+            }else if(timeCounter.innerHTML === "0" && writtenWord.value.toLowerCase() !== mainWord.innerHTML.toLowerCase()){
+                message.innerHTML = "GAME OVER"
+            }else if(scoreCounter.innerHTML === totalNumOfWords.innerHTML){
+                message.innerHTML = "WELL DONE"
+                clearInterval(timer)
+                localStorage.setItem(today,scoreCounter.innerHTML)
+            }
+        },1000)
+    },3000)
+    
+}
+
+// function of prepairing counter
+function prep(){
+    setInterval(()=>{
+        overlay.innerHTML--
+        if(overlay.innerHTML === "0"){
+            overlay.style.display= "none"
         }
     },1000)
-
 }

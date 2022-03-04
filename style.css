@@ -4,6 +4,9 @@
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
 }
+body{
+    background-color: #eee;
+}
 :root{
     --main-color:#3f51b5;
     --imp-details:#372621;
@@ -21,7 +24,7 @@
     color: #ccc;
     font-size: 10rem;
     font-weight: bold;
-    display: none;
+    display: none
 }
 #header{
     background-color:var(--main-color);
@@ -137,4 +140,11 @@ select option:nth-child(3){
 }
 .dashboard span{
     color:var(--main-color);
+}
+#message{
+    margin: 10px;
+    font-size: 5rem;
+    font-weight: bold;
+    color: red;
+    text-align: center;
 }
