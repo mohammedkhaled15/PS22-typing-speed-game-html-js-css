@@ -164,6 +164,9 @@ function startPlay(){
             // if the time finished and the word not correct
             }else if(timeCounter.innerHTML === "0" && writtenWord.value.toLowerCase() !== mainWord.innerHTML.toLowerCase()){
 
+                //save your score with date in local storage
+                localStorage.setItem(today,scoreCounter.innerHTML)
+
                 // generate amessage
                 mainWord.innerHTML = "GAME OVER"
                 mainWord.style.color = "red"
